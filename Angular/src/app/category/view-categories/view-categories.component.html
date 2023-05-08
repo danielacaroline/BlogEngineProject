@@ -1,0 +1,14 @@
+<style>
+  .cursor-pointer{
+    cursor: pointer;
+  }
+</style>
+<table class="table table-hover">
+  <tbody>
+    <tr *ngFor="let category of Categories;">
+      <td class="w-100" (click) = "editCategory(category)" ><div class="col-md-6 d-flex justify-content-start cursor-pointer">{{category.title}}</div></td>    
+      <td (click) = "deleteConfirm(category)"><i class="col d-flex justify-content-end bi bi-trash cursor-pointer"></i><td>
+    </tr>
+  </tbody>
+</table>
+

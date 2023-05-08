@@ -1,0 +1,14 @@
+<style>
+  .cursor-pointer{
+    cursor: pointer;
+  }
+</style>
+<table class="table table-hover">
+  <tbody>
+    <tr *ngFor="let post of Posts;">
+      <td class="w-100" [routerLink]="['/post', post.id]"><div class="col-md-6 d-flex justify-content-start cursor-pointer">{{post.title}}</div></td>
+      <td (click) = "deleteConfirm(post)"><i class="d-flex justify-content-end bi bi-trash cursor-pointer"></i><td>
+    </tr>
+  </tbody>
+</table>
+  

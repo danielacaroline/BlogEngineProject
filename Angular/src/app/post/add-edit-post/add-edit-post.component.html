@@ -1,0 +1,117 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+        <h1>BLOG</h1>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="container">        
+        <div class="col">
+            <h4 >{{titlePage}}</h4>
+        </div>
+    </div>
+    <div class="container">
+        <form novalidate  [formGroup]="postForm" (ngSubmit)="onSubmit()"  class="needs-validation" [class.was-validated]="isFormSubmitted">
+        <div class="form-group">             
+            <label for="basic-url" class="form-label">Title</label>
+            <input type="text"
+                #titleField  
+                class="form-control"
+                [(ngModel)]="title_view"
+                formControlName="title"
+                [ngClass]="{
+                    'is-invalid':
+                       isFormSubmitted &&                        
+                        title.errors
+                }"
+                required>
+            <div class="invalid-feedback" *ngIf="title.errors && title.dirty">
+                Title is required
+            </div>
+        </div>
+        <div class="form-group" >
+            <label for="basic-url" class="form-label">Category</label>   
+            <select 
+                ngbDropdown
+                class="form-select"
+                [ngClass]="{
+                    'is-invalid':
+                        isFormSubmitted &&
+                        category.errors
+                    }"
+                formControlName="category"
+                [(ngModel)]="category_view"
+                (change)="onSelected(category.value)"
+                required>
+                <option value ="" selected disabled>Select Category</option>
+                <option [ngValue]="category.title"  *ngFor="let category of categories">
+                    {{category.title}}
+                </option>
+            </select>
+            <div class="invalid-feedback" *ngIf="category.errors && category.dirty">
+                Category is required
+            </div>        
+        </div>
+        <div class="form-group">
+            <label for="basic-url" class="form-label">Publication Date</label>
+            <div class="input-group"
+            [ngClass]="{
+                'is-invalid':
+                    isFormSubmitted &&
+                    publicationDate.errors
+                }">
+                <input                    
+                    class="form-control"
+                    formControlName="publicationDate"
+                    [(ngModel)]="publicationDate_view"
+                    placeholder="yyyy-mm-dd"
+                    name="dp"
+                    ngbDatepicker
+                    #dp="ngbDatepicker"
+                    required>               
+                <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </span>
+                <button id='button-calendar' 
+                class=" form-group btn btn-outline-secondary bi bi-calendar3" 
+                (click)="dp.toggle()" type="button"></button>
+            </div>
+            <div class="invalid-feedback" *ngIf="publicationDate.errors && publicationDate.dirty">
+                Publication date is required
+            </div>    
+        </div>
+        <div class="form-group">           
+            <label for="validationTextarea" class="form-label">Content</label>
+            <div class="form-group"
+            [ngClass]="{
+                'is-invalid':
+                    isFormSubmitted &&
+                    content.errors 
+                }">
+                <textarea 
+                    [(ngModel)]="content_view"  
+                    type="text" 
+                    class="form-control" 
+                    formControlName="content"
+                    rows ="15" 
+                    required>
+                </textarea>                 
+            </div>              
+            <div class="invalid-feedback" *ngIf="content.errors && content.dirty">
+                Content post required
+            </div>  
+        </div>        
+
+        <div class="form-group">  
+            <button type="submit" class="btn btn-primary  float-end  " >Save</button> 
+            <button type="button" class="btn btn-secondary  float-end " (click)="Close()">Close</button>   
+        </div>
+    </form>
+  </div> 
+
+
